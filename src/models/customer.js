@@ -1,81 +1,31 @@
-const { DataTypes, Sequelize } = require("sequelize"); // Import Sequelize
+const { DataTypes, Sequelize } = require("sequelize");
 const database = require("../config/db");
+const Subscription = require("./subscriptionbought"); // Import Subscription model
+const Order = require("./order"); // Import Order model
 
-const customer = database.define("customer", {
+const Customer = database.define("Customer", {
   id: {
-    type: Sequelize.UUID, // Use Sequelize.UUID here
+    type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
-    allowNull: false,
     primaryKey: true,
   },
-  first_name: {
-    type: DataTypes.STRING(64),
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: "First name must not be empty",
-      },
-    },
-    allowNull: false,
-  },
-  last_name: {
-    type: DataTypes.STRING(64),
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: "Last name must not be empty",
-      },
-    },
-    allowNull: false,
-  },
-  user_name: {
-    type: DataTypes.STRING(64),
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: "User name must not be empty",
-      },
-    },
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING(255),
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: "Password must not be empty",
-      },
-    },
-    allowNull: false,
-  },
   email: {
-    type: DataTypes.STRING(128),
+    type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      notEmpty: {
-        args: true,
-        msg: "Email must not be empty",
-      },
+      isEmail: true,
     },
-    allowNull: false,
   },
-  confirmation_code: {
-    type: DataTypes.TEXT,
-    validate: {
-      notEmpty: {
-        args: true,
-        msg: "Confirmation code must not be empty",
-      },
-    },
-    allowNull: false,
-  },
-  confirmation_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  insert_ts: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
+  phone: Sequelize.STRING,
+  isActivated: Sequelize.BOOLEAN,
+  isEmailVerified: Sequelize.BOOLEAN,
+  isPhoneVerified: Sequelize.BOOLEAN,
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE,
 });
 
-module.exports = customer;
+// Define associations after importing other models
+Customer.hasMany(Subscription, { foreignKey: 'customerId' });
+Customer.hasMany(Order, { foreignKey: 'customerId' });
+
+module.exports = Customer;
