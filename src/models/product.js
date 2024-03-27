@@ -15,7 +15,4 @@ const Product = database.define('Product', {
     updatedAt: Sequelize.DATE
 });
 
-// Define associations
-Product.hasMany(SubscriptionPlan, { foreignKey: 'productId' });
-
 module.exports = Product;

@@ -17,7 +17,9 @@ const Product = require("./product");
   
 
 // Define associations
-SubscriptionPlan.belongsTo(Product);
+SubscriptionPlan.belongsTo(Product, {
+  foreignKey: "Product_id",
+});
 
 SubscriptionPlan.belongsTo(Order, {
   foreignKey: "Order_id",

@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 const database = require("../config/db");
-const customer = require("./customer");
+const Customer = require("./customer");
 
 const Subscription = database.define("Subscription", {
   id: {
@@ -16,6 +16,7 @@ const Subscription = database.define("Subscription", {
   updatedAt: Sequelize.DATE,
 });
 
-Subscription.belongsTo(customer);
+Subscription.hasMany(Customer, { foreignKey: 'customerId' });
+
 
 module.exports = Subscription;

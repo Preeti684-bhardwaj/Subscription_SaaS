@@ -17,6 +17,6 @@ const Order = database.define('Order', {
 });
 
 // Define associations
-Order.belongsTo(Customer, { foreignKey: 'customerId' });
+Order.hasMany(Customer, { foreignKey: 'customerId' });
 
 module.exports = Order;

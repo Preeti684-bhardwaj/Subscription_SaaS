@@ -24,8 +24,5 @@ const Customer = database.define("Customer", {
   updatedAt: Sequelize.DATE,
 });
 
-// Define associations after importing other models
-Customer.hasMany(Subscription, { foreignKey: 'customerId' });
-Customer.hasMany(Order, { foreignKey: 'customerId' });
 
 module.exports = Customer;
