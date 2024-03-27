@@ -11,6 +11,10 @@ const subscription = database.define("subscription", {
     allowNull: false,
     primaryKey: true,
   },
+  is_customer:{
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   billing_cycle: {
     type: DataTypes.STRING,
     allowNull: false,
